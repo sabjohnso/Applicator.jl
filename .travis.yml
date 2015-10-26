@@ -10,6 +10,6 @@ notifications:
   email: false
 script:
   - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-  - julia -e 'Pkg.clone(pwd()); Pkg.build("Applicator"); Pkg.test("Applicator"; coverage=true)'
+  - julia -e 'versioninfo(); Pkg.init(); Pkg.clone(pwd()); Pkg.test("Applicator", coverage=true)'
 after_success:
   - julia -e 'cd(Pkg.dir("Applicator"); Pkg.add("Coverage"); using Coverage; Codecov.submit(process_folder())'
